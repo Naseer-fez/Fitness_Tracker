@@ -1,5 +1,5 @@
 from flask import Blueprint
-from models.Sql_Achmy import db,User
+from models.Sql_Tables import db,User
 
 create_acc=Blueprint('create_account', __name__)
 def inputdata(Username,Password):
@@ -8,4 +8,4 @@ def inputdata(Username,Password):
             db.session.add(data)
             db.session.commit()
         except Exception as e:
-              raise TypeError(f"THe error is {e}")
+             return 0

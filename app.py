@@ -1,23 +1,24 @@
 from flask import Flask
-from routes.Login.Login import auth_bt  # Import the blueprint variable
+from routes.Login.Login import auth_bt 
 from routes.CreateAccount.CreateAccount import Cre_acc
-from models.Sql_Achmy import db  # Import the hub
+from models.Sql_Tables import db 
 from routes.CreateAccount.Functions.Transdatato_Db import create_acc
-
+from dotenv import load_dotenv
+import os 
+load_dotenv()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+Mysql_DB=os.getenv("Mysql_DB")
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:{Mysql_DB}@localhost/fitness_tracker'
 db.init_app(app)
 app.register_blueprint(create_acc)
 
-# app.register_blueprint(auth_bt)
+app.register_blueprint(auth_bt)
 app.register_blueprint(Cre_acc)
-# ... (your imports and config)
 
-# ... (your db.init_app(app) line)
 
 if __name__ == '__main__':
     with app.app_context():
-        # THIS LINE IS CRITICAL: It creates the 'users.db' file and the 'user' table!
-        db.create_all() 
+        db.create_all() #this crrated the db if it is not created 
     app.run(debug=True)

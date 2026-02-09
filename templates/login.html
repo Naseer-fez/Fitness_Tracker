@@ -1,13 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Page</title>
 </head>
+
 <body>
-    <form action="\next" method="POST">
-       <label for="username">Username:</label>
+    <form action="/Login" method="POST">
+
+        {% if messages %}
+        <h3 style="color: red;">{{ messages }}</h3>
+        {% endif %}
+        <label for="username">Username:</label>
         <input type="text" id="username" name="username">
         <br><br>
 
@@ -16,6 +22,8 @@
         <br><br>
         <button type="submit" class="login-btn">Log In</button>
 
+
     </form>
 </body>
+
 </html>

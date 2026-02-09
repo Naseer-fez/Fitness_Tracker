@@ -6,7 +6,9 @@ def verify(username,password,rename,repass):
         return [0,"Enter the Username"]
     if repass!=password:
         return   [0,"Password Dont match"]
-    db.inputdata(username,password)
+    value=db.inputdata(username,password)
+    if(value==0):
+        return [0,"Username Already exist"]
     return [1,1]
 
     
