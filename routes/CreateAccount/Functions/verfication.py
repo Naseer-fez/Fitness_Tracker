@@ -1,9 +1,7 @@
 from .import Transdatato_Db as db
 
-def verify(username,password,rename,repass):
+def verify(username,password,rename:None,repass):
     
-    if username!=rename:
-        return [0,"Enter the Username"]
     if repass!=password:
         return   [0,"Password Dont match"]
     value=db.inputdata(username,password)
