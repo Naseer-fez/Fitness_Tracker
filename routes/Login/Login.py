@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template,request
+from flask import Blueprint,render_template,request,redirect
 # import password_check 
 from .Functions import Search_Db as search
 auth_bt=Blueprint('auth',__name__)
@@ -10,7 +10,7 @@ def Login():
         password=request.form.get('Password')
         value=search.checking_password(username,password)
         if(value[0]):
-            return render_template("login.html",messages="DONE")
+            return redirect("/BmiCalculator")
         else:
             return render_template("login.html",messages=value[1])
 

@@ -3,6 +3,8 @@ from routes.Login.Login import auth_bt
 from routes.CreateAccount.CreateAccount import Cre_acc
 from models.Sql_Tables import db 
 from routes.CreateAccount.Functions.Transdatato_Db import create_acc
+from routes.BMI.Bmi_Cal import Bmi_auth
+
 from dotenv import load_dotenv
 import os 
 load_dotenv()
@@ -16,7 +18,7 @@ app.register_blueprint(create_acc)
 
 app.register_blueprint(auth_bt)
 app.register_blueprint(Cre_acc)
-
+app.register_blueprint(Bmi_auth)
 
 if __name__ == '__main__':
     with app.app_context():
