@@ -1,6 +1,6 @@
 from .import Transdatato_Db as db
 
-def verify(username,password,rename:None,repass):
+def verify(username,password,repass):
     
     if repass!=password:
         return   [0,"Password Dont match"]
