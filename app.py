@@ -4,7 +4,7 @@ from routes.CreateAccount.CreateAccount import Cre_acc
 from models.Sql_Tables import db 
 from routes.CreateAccount.Functions.Transdatato_Db import create_acc
 from routes.BMI.Bmi_Cal import Bmi_auth
-
+from Api_Limiter import Api_Limit as ap
 from dotenv import load_dotenv
 import os 
 load_dotenv()
