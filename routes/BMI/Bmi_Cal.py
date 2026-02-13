@@ -1,15 +1,25 @@
 from flask import Blueprint,render_template,request
 from .Functions import calculator as cal
+# from Api_Rate.Api_Limiter import Api_Limit as ap
+# limiter = ap()
+from Api_Rate.Enable import Access
 Bmi_auth=Blueprint("BMI",__name__)
+
 
 @Bmi_auth.route("/BmiCalculator",methods=["GET","POST"])
 def Bmi():
+    if Access(ip=request.remote_addr)==0:
+        render_template("Timeout.html")
+    
     return render_template("BMI/Bmi_Cal.html")
 
 
 @Bmi_auth.route("/Calculator",methods=["GET","POST"])
 
 def calculator():
+    if Access(ip=request.remote_addr)==0:
+        render_template("Timeout.html")
+
     if request.method=="POST":
         weight=request.form.get('weight')
         w_type=request.form.get('Kgs')

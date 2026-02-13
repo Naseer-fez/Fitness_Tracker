@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your details</title>
+</head>
+
+<body>
+    <form action="/Details" method="POST">
+        {% if messages %}
+        <h3 style="color: red;">{{ messages }}</h3>
+        {% endif %}
+        <br><br>
+        <label for="Age">Your Age:</label>
+        <input type="text" id="Age" name="Age" required>
+        <br><br>
+        <select name="gender" id="gender" required>
+            <option value="" disabled selected>Select your gender</option>
+            <option value="male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <br><br>
+        <label for="weight">Entre Your weight:</label>
+        <input type="text" id="weight" name="weight" required>
+        <select name="kgs" id="kgs">
+            <option value="kgs">kgs</option>
+            <option value="lbs">lbs</option>
+        </select>
+
+        <br><br>
+        <label for="Height">Your Height:</label>
+        <input type="text" id="Height" name="Height" required>
+        <select name="FT" id="FT">
+            <option value="cms">Cm'S</option>
+            <option value="Inc">INC</option>
+        </select>
+        <br><br>
+        <label>Do you Go to Gym??</label>
+        <select name="Gym" id="Gym" required>
+            <option value="" disabled selected>Please choose...</option>
+            <option value="Yes">Yes</option>
+            <option value="No">NO</option>
+        </select>
+
+        <br><br>
+        <label for="Protein">How Much Protein Do u take in a Day</label>
+        <input type="number" id="Protein" name="Protein" required>
+        <select name="prot_unit" id="prot_unit">
+            <option value="grms">Grms</option>
+            <option value="pond">lbs</option>
+        </select>
+        <br><br>
+        <label for="veg">Are You Vegetrain</label>
+        <select name="veg" id="veg" required>
+            <option value="" disabled selected>Please choose...</option>
+            <option value="Panner">Yes</option>
+            <option value="Chicken">NO</option>
+        </select>
+        <br><br>
+        <label for="Workout">How Many Days in a Week Do you Workout</label>
+        <select name="noofdays" id="noofdays" required>
+            <option value="" disabled selected>Select days per week</option>
+            <option value="1">1 Day</option>
+            <option value="2">2 Days</option>
+            <option value="3">3 Days</option>
+            <option value="4">4 Days</option>
+            <option value="5">5 Days</option>
+            <option value="6">6 Days</option>
+            <option value="7">7 Days</option>
+        </select>
+        <br><br>
+
+
+        <br><br>
+        <button type="submit" class="login-btn">submit</button>
+    </form>
+
+</body>
+
+</html>
