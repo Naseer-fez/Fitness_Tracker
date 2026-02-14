@@ -2,13 +2,14 @@ from flask import Blueprint,render_template,request,redirect,url_for
 from .Functions import  verfication as vy
 # from Api_Rate.Api_Limiter import Api_Limit as ap 
 from Api_Rate.Enable import Access
-
+from models.Decorators import rate_limit
 Cre_acc=Blueprint('CRC',__name__)
 
 # limiter = ap()
 
 
 @Cre_acc.route("/Create",methods=["POST","GET"])
+@rate_limit()
 def Creation_Account():
     # userip = request.remote_addr
     # data = limiter.ratelimiter(ip=userip,filena=None,allowedtime=20,

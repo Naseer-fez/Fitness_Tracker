@@ -16,6 +16,7 @@ app = Flask(__name__)
 Mysql_DB=os.getenv("Mysql_DB")
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:{Mysql_DB}@localhost/fitness_tracker'
+app.secret_key=os.getenv("SECRET_KEY")
 db.init_app(app)
 app.register_blueprint(create_acc)
 app.register_blueprint(dashboard_bp)

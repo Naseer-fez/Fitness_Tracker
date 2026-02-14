@@ -9,7 +9,9 @@
 
 <body>
     <header>
-        Hello, {{user}}
+       {% if messages %}
+        <h3 style="color: red;">{{ messages }}</h3>
+        {% endif %}
     </header>
     <a href="/BmiCalculator">
         <div></div>
@@ -22,7 +24,11 @@
 <button type="button" class="login-btn">
    Your Details</button></a>
 <div></div>
-
+    <a href="/Logout">
+        <div></div>
+<button type="button" class="login-btn">
+   Signout</button></a>
+<div></div>
 
 
 </body>

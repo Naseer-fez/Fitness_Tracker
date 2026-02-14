@@ -22,6 +22,7 @@ def Access(ip=None,filena=None,allowedtime=20,freqattempts=5,attempts=5,required
     Pre_freqattempts=freqattempts
     Pre_attempts=attempts
     Pre_required=required
+    Pre_filena=filena
     if filena ==None:
           Pre_filena=create_dynamic_file(type=filetype)
           __Fileopener(Pre_filena)

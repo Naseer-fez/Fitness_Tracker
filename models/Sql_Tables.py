@@ -11,4 +11,6 @@ class User(db.Model):
 
 # user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    
+# class Details(db.Model):
+#     __tablename__="Details"
+#     user_id =db.Column(db.Integer,db.ForeignKey('user.id'),primar_key=True ,nullable=False)
