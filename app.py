@@ -8,6 +8,7 @@ from routes.CreateAccount.Functions.Transdatato_Db import create_acc
 from routes.BMI.Bmi_Cal import Bmi_auth
 from routes.Dashboard.Dashboard import dashboard_bp
 from routes.Welcome.hello import Hi_bp
+from routes.Dashboard.Functions.Dataentry import Dashboard_Details_Entry
 from dotenv import load_dotenv
 import os 
 load_dotenv()
@@ -24,7 +25,7 @@ app.register_blueprint(auth_bt)
 app.register_blueprint(Cre_acc)
 app.register_blueprint(Bmi_auth)
 app.register_blueprint(Hi_bp)
-
+# app.register_blueprint(Dashboard_Details_Entry)
 # @app.before_request
 # def check_access():
 #     # This will run before every single request to your server

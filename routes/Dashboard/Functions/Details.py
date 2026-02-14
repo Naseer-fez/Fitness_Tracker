@@ -2,14 +2,22 @@
     #   fields = [ "Age", "gender", "weight", "kgs", "Height", 
     # "FT", "Gym", "Protein", "prot_unit", "veg", "noofdays"]
 from routes.BMI.Functions import calculator as cal
-def Entry(user_data,fields):
+from routes.Dashboard.Functions.Dataentry import dataEntry
+def Entry(user_data,app):
     # cal.BMICalulator(weight,w_type,height,h_type)
-    bmicalculation=cal.BMICalulator(weight=user_data['weight'],w_type=user_data['Kgs'],
-        height=user_data['Height'],h_type=user_data['FT'],required=True)
-    enough_protien=protiencalculator(user_data['Protein'],user_data["prot_unit"],bmicalculation["weight"],user_data['Gym'])
+    conversion(user_data=user_data)
+    bmicalculation=cal.BMICalulator(weight=float(user_data['weight']),
+                w_type=user_data['Weight_type'], 
+                height=(user_data['height']),
+                h_type=user_data['Height_type'], 
+                required=True)
+    enough_protien=protiencalculator(user_data['Protien'],user_data["Protien_type"],bmicalculation["weight"],user_data['Gym'])
     user_data["BMI"]=bmicalculation["BMI"]
     user_data[f"{enough_protien}"]=enough_protien[0]
     user_data[f"{enough_protien}"]=enough_protien[1]
+    Actualdata=dataEntry(userdata=user_data,app=app)
+
+
     
 
 
@@ -26,4 +34,15 @@ def protiencalculator(Protein,prot_type,weight,gym):
                        return [False,-value]
             else:
                     return [True,(value)]
+            
+
+def conversion(user_data):
+    user_data['weight'] = float(user_data['weight'])
+    user_data['height'] = float(user_data['height'])
+    user_data['Protien'] = float(user_data['Protien'])
+    user_data['Age'] = int(user_data['Age'])
+    user_data['Daysofweek'] = int(user_data['Daysofweek'])
+
+    return user_data
+
 

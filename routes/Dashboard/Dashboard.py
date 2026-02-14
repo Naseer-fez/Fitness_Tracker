@@ -5,6 +5,8 @@ from Api_Rate.Enable import Access
 from .Functions.Details import Entry
 import threading
 from models.Decorators import login_required,rate_limit
+from models.Sql_Tables import User
+from flask import current_app
 dashboard_bp=Blueprint('dash',__name__)
 
 
@@ -30,11 +32,18 @@ def dashboard():
 @login_required
 # @rate_limit()
 def details():
-      fields = [ "Age", "gender", "weight", "kgs", "Height", 
-    "FT", "Gym", "Protein", "prot_unit", "veg", "noofdays"]
+      fields = [
+        "Age", "gender", "weight", "Weight_type", 
+        "height", "Height_type", "Gym", "Protien", 
+        "Protien_type", "Veg", "Daysofweek"
+    ]
       if request.method=="POST":
+           user_name=session['username']
+           user = User.query.filter_by(username=user_name).first()
            user_data={key: request.form.get(key) for key in fields}
-           thread=threading.Thread(target=Entry,args=(user_data,fields))
+           user_data['user_id']=user.id
+           app_instance = current_app._get_current_object()
+           thread=thread = threading.Thread(target=Entry, args=( user_data,app_instance) )
            thread.start()
         
            return redirect("/DashBoard")

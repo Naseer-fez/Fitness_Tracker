@@ -1,83 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your details</title>
+    <title>Your Details</title>
 </head>
-
 <body>
     <form action="/Details" method="POST">
         {% if messages %}
         <h3 style="color: red;">{{ messages }}</h3>
         {% endif %}
         <br><br>
+
         <label for="Age">Your Age:</label>
-        <input type="text" id="Age" name="Age" required>
+        <input type="number" id="Age" name="Age" required>
         <br><br>
+
+        <label for="gender">Gender:</label>
         <select name="gender" id="gender" required>
             <option value="" disabled selected>Select your gender</option>
             <option value="male">Male</option>
             <option value="Female">Female</option>
         </select>
         <br><br>
-        <label for="weight">Entre Your weight:</label>
+
+        <label for="weight">Enter Your weight:</label>
         <input type="text" id="weight" name="weight" required>
-        <select name="kgs" id="kgs">
+        
+        <select name="Weight_type" id="Weight_type">
             <option value="kgs">kgs</option>
             <option value="lbs">lbs</option>
         </select>
-
         <br><br>
-        <label for="Height">Your Height:</label>
-        <input type="text" id="Height" name="Height" required>
-        <select name="FT" id="FT">
+
+        <label for="height">Your Height:</label>
+        <input type="text" id="height" name="height" required>
+        
+        <select name="Height_type" id="Height_type">
             <option value="cms">Cm'S</option>
             <option value="Inc">INC</option>
         </select>
         <br><br>
+
         <label>Do you Go to Gym??</label>
         <select name="Gym" id="Gym" required>
             <option value="" disabled selected>Please choose...</option>
             <option value="Yes">Yes</option>
-            <option value="No">NO</option>
+            <option value="No">No</option>
         </select>
-
         <br><br>
-        <label for="Protein">How Much Protein Do u take in a Day</label>
-        <input type="number" id="Protein" name="Protein" required>
-        <select name="prot_unit" id="prot_unit">
+
+        <label for="Protien">How Much Protein Do u take in a Day?</label>
+        <input type="number" id="Protien" name="Protien" required>
+        
+        <select name="Protien_type" id="Protien_type">
             <option value="grms">Grms</option>
-            <option value="pond">lbs</option>
+            <option value="lbs">lbs</option>
         </select>
         <br><br>
-        <label for="veg">Are You Vegetrain</label>
-        <select name="veg" id="veg" required>
+
+        <label for="Veg">Are You Vegetarian?</label>
+        <select name="Veg" id="Veg" required>
             <option value="" disabled selected>Please choose...</option>
-            <option value="Panner">Yes</option>
-            <option value="Chicken">NO</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
         </select>
         <br><br>
-        <label for="Workout">How Many Days in a Week Do you Workout</label>
-        <select name="noofdays" id="noofdays" required>
+
+        <label for="Daysofweek">How Many Days in a Week Do you Workout?</label>
+        <select name="Daysofweek" id="Daysofweek" required>
             <option value="" disabled selected>Select days per week</option>
-            <option value="0">0 Day</option>
-            <option value="1">1 Day</option>
-            <option value="2">2 Days</option>
-            <option value="3">3 Days</option>
-            <option value="4">4 Days</option>
-            <option value="5">5 Days</option>
-            <option value="6">6 Days</option>
-            <option value="7">7 Days</option>
+            {% for day in range(8) %}
+            <option value="{{ day }}">{{ day }} Day{{ 's' if day != 1 else '' }}</option>
+            {% endfor %}
         </select>
         <br><br>
 
+        <input type="hidden" name="noofdays" value="0"> 
 
-        <br><br>
-        <button type="submit" class="login-btn">submit</button>
+        <button type="submit" class="login-btn">Submit</button>
     </form>
-
 </body>
-
 </html>
