@@ -9,15 +9,15 @@ from models.Decorators import rate_limit
 
 
 @auth_bt.route("/Login",methods=['GET', 'POST'])
-@rate_limit(allowedtime=40,freqattempts=10,attempts=20)
+# @rate_limit(allowedtime=40,freqattempts=10,attempts=20)
 def Login():
     # userip = request.remote_addr
     # data = limiter.ratelimiter(ip=userip,filena=None,allowedtime=20,
     #                            freqattempts=5,attempts=5,required=1)  
     # if data != "Done":
     #     return f"Too Many Attempts wait for {data} secs \n "
-    if Access(ip=request.remote_addr)==0:
-        return render_template("Timeout.html")
+    # if Access(ip=request.remote_addr)==0:
+    #     return render_template("Timeout.html")
     if request.method=="POST":
         username=request.form.get('username')
         password=request.form.get('Password')

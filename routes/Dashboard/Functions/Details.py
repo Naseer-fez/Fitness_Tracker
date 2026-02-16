@@ -10,12 +10,13 @@ def Entry(user_data,app):
                 w_type=user_data['Weight_type'], 
                 height=(user_data['height']),
                 h_type=user_data['Height_type'], 
-                required=True)
-    enough_protien=protiencalculator(user_data['Protien'],user_data["Protien_type"],bmicalculation["weight"],user_data['Gym'])
+                required=2)
+    Protien_Enough=protiencalculator(user_data['Protien'],user_data["Protien_type"],bmicalculation["weight"],user_data['Gym'])
     user_data["BMI"]=bmicalculation["BMI"]
-    user_data[f"{enough_protien}"]=enough_protien[0]
-    user_data[f"{enough_protien}"]=enough_protien[1]
-    Actualdata=dataEntry(userdata=user_data,app=app)
+    user_data["Category"]=bmicalculation["Category"]
+    user_data["Protien_Enough"]=int(Protien_Enough[0])
+    user_data["Protien_Difference"]=Protien_Enough[1]
+    dataEntry(userdata=user_data,app=app)
 
 
     

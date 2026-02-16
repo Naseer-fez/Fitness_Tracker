@@ -27,6 +27,7 @@ class Details(db.Model):
     height = db.Column(db.Float)
     Height_type = db.Column(db.String(4))
     BMI = db.Column(db.Float)
+    Category=db.Column(db.String(20))
 
     # --- Lifestyle and Diet ---
     Gym = db.Column(db.String(4))
@@ -35,11 +36,11 @@ class Details(db.Model):
     # --- Protein Tracking ---
     Protien = db.Column(db.Integer)
     Protien_type = db.Column(db.String(4))
-    Protien_Enough = db.Column(db.Boolean)
+    Protien_Enough = db.Column(db.Integer)
     Protien_Difference = db.Column(db.Integer)
 
     # --- Scheduling ---
-    noofdays = db.Column(db.Integer)
+    # noofdays = db.Column(db.Integer)
     Daysofweek = db.Column(db.Integer)
 
 

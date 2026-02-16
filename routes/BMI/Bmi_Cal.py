@@ -28,5 +28,6 @@ def calculator():
         values=cal.BMICalulator(weight,w_type,height,h_type)
         return render_template(
             "BMI/Cal_page.html",
-            messages=values
+            messages=values[0],
+            Category=values[1]
         )
