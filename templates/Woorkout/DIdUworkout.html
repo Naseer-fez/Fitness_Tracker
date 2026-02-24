@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workput</title>
+</head>
+
+<body>
+    {% if messages %}
+    {%for message in messages%}
+    {%if message==1%}
+    <div style="width: 50px; height: 40px;
+     background-color: red; border: 2px solid black;"></div>
+    {%else%}
+     <div style="width: 50px; height: 40px;
+      background-color: green; border: 2px solid black;"></div>
+    {% endif %}
+    {%endfor}
+
+    {% endif %}
+
+
+
+
+</body>
+
+</html>

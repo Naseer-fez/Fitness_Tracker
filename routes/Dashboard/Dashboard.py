@@ -1,12 +1,15 @@
 from flask import Blueprint,render_template,request,redirect,session
 # from .Functions import Search_Db as search
 # from Api_Rate.Api_Limiter import Api_Limit as ap
+
 from Api_Rate.Enable import Access
 from .Functions.Details import Entry
 import threading
 from models.Decorators import login_required,rate_limit
 from models.Sql_Tables import User
 from flask import current_app
+from routes.Workout.Calander import data
+
 dashboard_bp=Blueprint('dash',__name__)
 
 
@@ -22,7 +25,7 @@ dashboard_bp=Blueprint('dash',__name__)
 def dashboard():
 
          user_name=session['username']
-         return render_template("Dashboard/Dashboard.html",messages=user_name)
+         return render_template("Dashboard/Dashboard.html",messages=user_name,Data=data())
         
 
 

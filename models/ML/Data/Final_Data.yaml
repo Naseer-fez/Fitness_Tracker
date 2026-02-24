@@ -1,0 +1,61 @@
+features:
+  set_0:
+  - Max_BPM
+  - Avg_BPM
+  - Resting_BPM
+  - Age
+  - Fat_Percentage
+  - HR_Reserve
+  - BPM_Range
+  - Intensity_Score
+  set_1:
+  - Age
+  - Weight (kg)
+  - Height (m)
+  - Max_BPM
+  - Avg_BPM
+  - Resting_BPM
+  - Fat_Percentage
+  - Daysofweek
+  - BMI
+linear_model:
+  intercept: 80.27454455391256
+  scaling_mean:
+    Age: 24.97677286742035
+    Avg_BPM: 80.27454455391256
+    BMI: 1.7225796505652622
+    BPM_Range: 38.68345323741007
+    Daysofweek: 73.85467625899281
+    Fat_Percentage: 38.68345323741007
+    HR_Reserve: 62.223021582733814
+    Height (m): 117.66084275436793
+    Intensity_Score: 38.68345323741007
+    Max_BPM: 36.11716341212744
+    Resting_BPM: 38.68345323741007
+    Weight (kg): 24.97677286742035
+  scaling_var:
+    Age: 39.14005659486506
+    Avg_BPM: 95.03297393299758
+    BMI: 0.016295606451265352
+    BPM_Range: 148.22251140505892
+    Daysofweek: 449.29583887258127
+    Fat_Percentage: 148.22251140505892
+    HR_Reserve: 53.630631363357416
+    Height (m): 180.1521871623242
+    Intensity_Score: 148.22251140505892
+    Max_BPM: 351.4066221695965
+    Resting_BPM: 148.22251140505892
+    Weight (kg): 39.14005659486506
+  slopes:
+    Age: -0.0017800386038095736
+    Avg_BPM: 7.775741272086884
+    BMI: -0.017243800418269846
+    BPM_Range: 0.0007005328194890717
+    Daysofweek: 0.014420437942671371
+    Fat_Percentage: 0.0007005328195407343
+    HR_Reserve: -0.01837855948576159
+    Height (m): -0.14109321810488284
+    Intensity_Score: 0.0007005328194900347
+    Max_BPM: -0.36526780906441475
+    Resting_BPM: 0.000700532819540728
+    Weight (kg): -0.0017800386038090382

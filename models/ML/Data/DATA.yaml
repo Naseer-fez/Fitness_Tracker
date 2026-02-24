@@ -1,0 +1,20 @@
+features:
+  set_0:
+  - Max_BPM
+  - Avg_BPM
+  - Resting_BPM
+  - Age
+  - Fat_Percentage
+  - HR_Reserve
+  - BPM_Range
+  - Intensity_Score
+  set_1:
+  - Age
+  - Weight (kg)
+  - Height (m)
+  - Max_BPM
+  - Avg_BPM
+  - Resting_BPM
+  - Fat_Percentage
+  - Daysofweek
+  - BMI
