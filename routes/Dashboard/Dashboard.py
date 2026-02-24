@@ -9,7 +9,7 @@ from models.Decorators import login_required,rate_limit
 from models.Sql_Tables import User
 from flask import current_app
 from routes.Workout.Calander import data
-
+from flask_login import current_user
 dashboard_bp=Blueprint('dash',__name__)
 
 
@@ -21,11 +21,13 @@ dashboard_bp=Blueprint('dash',__name__)
 
 @dashboard_bp.route("/DashBoard",methods=["POST","GET"])
 @login_required
-@rate_limit()
+# @rate_limit()
 def dashboard():
-
-         user_name=session['username']
-         return render_template("Dashboard/Dashboard.html",messages=user_name,Data=data())
+      user_name = session.get('username')
+      if request.method=="POST":
+            return render_template("Dashboard/Dashboard.html",messages=user_name,Data=data(username1=user_name,update=1))
+         
+      return render_template("Dashboard/Dashboard.html",messages=user_name,Data=data(username1=user_name,update=0))
         
 
 

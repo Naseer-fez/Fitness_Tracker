@@ -9,55 +9,59 @@
 
 <body>
     <header>
-       {% if messages %}
+        {% if messages %}
         <h3 style="color: red;">{{ messages }}</h3>
         {% endif %}
     </header>
     <a href="/BmiCalculator">
         <div></div>
-<button type="button" class="login-btn">
-   BMI</button></a>
-<div></div>
+        <button type="button" class="login-btn">
+            BMI</button>
+    </a>
+    <div></div>
 
     <a href="/Details">
         <div></div>
-<button type="button" class="login-btn">
-   Your Details</button></a>
-<div></div>
+        <button type="button" class="login-btn">
+            Your Details</button>
+    </a>
+    <div></div>
     <a href="/Logout">
         <div></div>
-<button type="button" class="login-btn">
-   Signout</button></a>
-<div></div>
-<div></div>
- {% if Data %}
-    {% for row in Data %}
-        <div style="display: block; line-height: 0;"> 
-            {% for cell in row %}
-
-            {% if cell == "G" %}
-                    <div style="width: 50px; height: 40px; background-color: grey; border: 2px solid black; display: inline-block; 
-                                color: white; text-align: center; line-height: 40px; font-family: Arial, sans-serif; font-weight: bold;">
-                        <!-- {{ cell }} -->
-                    </div>
-
-
-                {% elif cell == "A" %}
-                    <div style="width: 50px; height: 40px; background-color: red; border: 2px solid black; display: inline-block; 
-                                color: white; text-align: center; line-height: 40px; font-family: Arial, sans-serif; font-weight: bold;">
-                        <!-- {{ cell }} -->
-                    </div>
-                {% else %}
-                    <div style="width: 50px; height: 40px; background-color: green; border: 2px solid black; display: inline-block; 
-                                color: white; text-align: center; line-height: 40px; font-family: Arial, sans-serif; font-weight: bold;">
-                        <!-- {{ cell }} -->
-                    </div>
-                {% endif %}
-            {% endfor %}
-        </div>
+        <button type="button" class="login-btn">
+            Signout</button>
+    </a>
+    <div></div>
+    <div></div>
+{% if Data and Data != "NO" %}
+<div style="display: grid; grid-template-columns: repeat(7, 54px); column-gap: 5px; row-gap: 0px;">
+    
+    {% for cell in Data %}
+        {% if cell == "G" %}
+            <div style="width: 50px; height: 40px; background-color: grey; border: 2px solid black;"></div>
+        {% elif cell == "A" %}
+            <div style="width: 50px; height: 40px; background-color: red; border: 2px solid black;"></div>
+        {% elif cell == "Y" %}
+            <div style="width: 50px; height: 40px; background-color: yellow; border: 2px solid black;"></div>
+        {% elif cell == "N" %}
+            <div style="width: 50px; height: 40px; background-color: black; border: 2px solid black;"></div>
+        {% else %}
+            <div style="width: 50px; height: 40px; background-color: green; border: 2px solid black;"></div>
+        {% endif %}
     {% endfor %}
+
+</div>
+{% else %}
+    <p>No data available</p>
 {% endif %}
 
+    <form action="/record_workout" method="POST">
+    <input type="hidden" name="worked_out" value="true">
+    <button type="submit" class="login-btn">
+        Have You Worked out Today??
+    </button>
+</form>
+    <div></div>
 
 </body>
 

@@ -9,6 +9,7 @@ from routes.BMI.Bmi_Cal import Bmi_auth
 from routes.Dashboard.Dashboard import dashboard_bp
 from routes.Welcome.hello import Hi_bp
 from routes.Dashboard.Functions.Dataentry import Dashboard_Details_Entry
+# from models.Calander_Table import db
 from dotenv import load_dotenv
 import os 
 load_dotenv()
