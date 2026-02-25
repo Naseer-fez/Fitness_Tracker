@@ -25,9 +25,9 @@ dashboard_bp=Blueprint('dash',__name__)
 def dashboard():
       user_name = session.get('username')
       if request.method=="POST":
-            return render_template("Dashboard/Dashboard.html",messages=user_name,Data=data(username1=user_name,update=1))
+            return render_template("Dashboard/Dashboard.html",messages=user_name,Data=data(user_name=user_name,update=1))
          
-      return render_template("Dashboard/Dashboard.html",messages=user_name,Data=data(username1=user_name,update=0))
+      return render_template("Dashboard/Dashboard.html",messages=user_name,Data=data(user_name=user_name,update=0))
         
 
 

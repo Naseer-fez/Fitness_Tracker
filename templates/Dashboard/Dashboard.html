@@ -45,7 +45,7 @@
             <div style="width: 50px; height: 40px; background-color: yellow; border: 2px solid black;"></div>
         {% elif cell == "N" %}
             <div style="width: 50px; height: 40px; background-color: black; border: 2px solid black;"></div>
-        {% else %}
+        {% elif cell == "S" %}
             <div style="width: 50px; height: 40px; background-color: green; border: 2px solid black;"></div>
         {% endif %}
     {% endfor %}
@@ -55,7 +55,7 @@
     <p>No data available</p>
 {% endif %}
 
-    <form action="/record_workout" method="POST">
+    <form action="/DashBoard" method="POST">
     <input type="hidden" name="worked_out" value="true">
     <button type="submit" class="login-btn">
         Have You Worked out Today??
