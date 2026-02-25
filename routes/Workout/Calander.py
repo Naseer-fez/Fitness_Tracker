@@ -77,7 +77,6 @@ def data(username1,update=None):
     return info
 
         
-        
     
 
 
