@@ -1,4 +1,4 @@
-from flask import Blueprint,render_template,request,redirect,session
+from flask import Blueprint,render_template,request,redirect,session,url_for
 # from .Functions import Search_Db as search
 # from Api_Rate.Api_Limiter import Api_Limit as ap
 
@@ -25,7 +25,10 @@ dashboard_bp=Blueprint('dash',__name__)
 def dashboard():
       user_name = session.get('username')
       if request.method=="POST":
-            return render_template("Dashboard/Dashboard.html",messages=user_name,Data=data(user_name=user_name,update=1))
+            data(user_name=user_name, update=1)  
+            return redirect(url_for('dash.dashboard'))
+                  
+
          
       return render_template("Dashboard/Dashboard.html",messages=user_name,Data=data(user_name=user_name,update=0))
         
