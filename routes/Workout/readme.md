@@ -1,2 +1,2 @@
-So , the misatke i made is the userid is not found , in that case i need to add the user info , i didnt do that 
-i need to add the user id and info and then i need to commit that info 
+Added the Email extractor and predefined message ,now need to write the code for sending the email and 
+a backup soultion if the curren method fails.

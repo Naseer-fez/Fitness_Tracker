@@ -27,7 +27,7 @@ def transfer_to_db(userid,info,des_mon=current_month_int):
     else:
         output=info
     
-    trans=cal(user_id=userid,dates=output,month=des_mon)
+    trans=cal(user_id=userid,dates=output,month=des_mon,date=now.date(),time=now.time())
     try:
         # db.session.add(trans)
         db.session.merge(trans)
@@ -176,12 +176,8 @@ def data(user_name,update=0):
 if __name__=="__main__":
     # st= "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGSNNNG"
     # print(len(st))
-    # test=[]
-    # for i in st:
-    #     test.append(i)
-    # # print(get_today_index(weeks=weeks,todaysdate=26))
-    # # print(weeks[get_today_index(weeks=weeks,todaysdate=26)])
-    # print(date_updates(weeks=test,todaysdate=26))
+    print(now.date())
+    print(now.time())
     pass
     # print(get_today_index(25))
     
