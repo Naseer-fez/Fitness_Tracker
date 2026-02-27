@@ -142,8 +142,9 @@ def data(user_name,update=0):
         return info #the data is added into the db now , need to think about what if the data is nto added
     info=found_Cal.dates
     today_idx = get_today_index(todaysdate=date)
-
     elemnt=info[today_idx]
+    if elemnt==notavailable:
+        elemnt=present
     # print(elemnt)
     table_month=found_Cal.month
     send_mon=current_month_int
