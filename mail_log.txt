@@ -1,8 +1,0 @@
-2026-03-03 15:43:52.008942 - Naseer - {'Naseer': (553, b'5.1.3 The recipient address <Naseer> is not a valid RFC 5321 address. For\n5.1.3 more information, go to\n5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n5.1.3 specifications. d2e1a72fcca58-8273a060331sm15087922b3a.62 - gsmtp')}
-2026-03-03 15:43:52.011427 - None - Failed to send to 1
-2026-03-03 15:43:53.060873 - Naseer - {'Naseer': (553, b'5.1.3 The recipient address <Naseer> is not a valid RFC 5321 address. For\n5.1.3 more information, go to\n5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n5.1.3 specifications. d9443c01a7336-2adfb6a03fbsm219004245ad.43 - gsmtp')}
-2026-03-03 15:43:53.061874 - None - Failed to send to 1
-2026-03-03 15:43:54.250875 - feznaseer777 - {'feznaseer777': (553, b'5.1.3 The recipient address <feznaseer777> is not a valid RFC 5321 address.\n5.1.3 For more information, go to\n5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n5.1.3 specifications. d2e1a72fcca58-82739d4d880sm16030661b3a.7 - gsmtp')}
-2026-03-03 15:43:54.251879 - None - Failed to send to 2
-2026-03-03 15:43:55.412555 - feznaseer777 - {'feznaseer777': (553, b'5.1.3 The recipient address <feznaseer777> is not a valid RFC 5321 address.\n5.1.3 For more information, go to\n5.1.3  https://support.google.com/a/answer/3221692 and review RFC 5321\n5.1.3 specifications. d9443c01a7336-2adfb5c9f79sm178426175ad.33 - gsmtp')}
-2026-03-03 15:43:55.413548 - None - Failed to send to 2

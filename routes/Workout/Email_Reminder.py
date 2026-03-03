@@ -35,15 +35,22 @@ time_data = {
     "sender_email": email
 }
 
-def log_result(status,email=None,log_type=1):
+def log_result(status,email=None,log_type=1,filename=None):
+    log_dir="Log"
+    if not os.path.exists(log_dir):
+        os.makedirs(log_dir)
+    if filename:
+         with open(f"Logs/{filename}.txt", "a") as f:
+            f.write(f"{datetime.now()} - {status} - {status}\n")
+    
     if log_type==1:
-        with open("mail_log.txt", "a") as f:
+        with open(f"{log_dir}/mail_log.txt", "a") as f:
             f.write(f"{datetime.now()} - {email} - {status}\n")
     elif log_type==2:
-        with open("Db_ERROR.txt",'a') as f:
+        with open(f"{log_dir}/Db_ERROR.txt",'a') as f:
             f.write(f"{datetime.now().time()}-->{status}\n")
     else:
-            with open("General_ERROR.txt",'a') as f:
+            with open(f"{log_dir}/General_ERROR.txt",'a') as f:
                 f.write(f"{datetime.now().time()}-->{status}\n")
 
 def Messages_to_send(to,msg_info=1,date=None,frm=time_data["sender_email"]):
@@ -115,7 +122,7 @@ def EmailReminder(sender_email=email, timelimit=10, days=1):
         thread=threading.Thread(target=Email_extractor,args=(actual_app,timelimit,))
         thread.daemon=True
         thread.start()
-        # log_result(log_type=33, status="SYSTEM: Thread Started Successfully")
+        log_result(log_type=33, status="SYSTEM: Thread Started Successfully")
     except Exception as e:
         log_result(log_type=0, status=f"Thread Launch Failed: {e}")
                 

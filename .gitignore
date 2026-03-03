@@ -5,3 +5,4 @@ instance/
 .vscode/
 instance/
 *.db
+Log/
