@@ -36,19 +36,19 @@
 {% if Data and Data != "NO" %}
 <div style="display: grid; grid-template-columns: repeat(7, 54px); column-gap: 5px; row-gap: 0px;">
     
-    {% for cell in Data %}
-        {% if cell == "G" %}
-            <div style="width: 50px; height: 40px; background-color: grey; border: 2px solid black;"></div>
-        {% elif cell == "A" %}
-            <div style="width: 50px; height: 40px; background-color: red; border: 2px solid black;"></div>
-        {% elif cell == "Y" %}
-            <div style="width: 50px; height: 40px; background-color: yellow; border: 2px solid black;"></div>
-        {% elif cell == "N" %}
-            <div style="width: 50px; height: 40px; background-color: black; border: 2px solid black;"></div>
-        {% else %}
-            <div style="width: 50px; height: 40px; background-color: green; border: 2px solid black;"></div>
-        {% endif %}
-    {% endfor %}
+{% for cell in Data %}
+    {% if cell == "G" %}
+        <div style="width: 50px; height: 40px; background-color: grey; border: 2px solid black;"></div>
+    {% elif cell == "R" %}
+        <div style="width: 50px; height: 40px; background-color: red; border: 2px solid black;"></div>
+    {% elif cell == "Y" %}
+        <div style="width: 50px; height: 40px; background-color: yellow; border: 2px solid black;"></div>
+    {% elif cell == "N" %}
+        <div style="width: 50px; height: 40px; background-color: black; border: 2px solid black;"></div>
+    {% else %}
+        <div style="width: 50px; height: 40px; background-color: green; border: 2px solid black;"></div>
+    {% endif %}
+{% endfor %}
 
 </div>
 {% else %}

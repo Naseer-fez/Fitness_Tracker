@@ -1,6 +1,6 @@
 
+import datetime
 import calendar
-from datetime import datetime
 try:
     from models.Calander_Table import Calander as cal
     from models.Sql_Tables import User
@@ -40,7 +40,8 @@ def transfer_to_db(userid,info,cal_data):
     else:
         output=info
 
-    trans=cal(user_id=userid,dates=output,month=cal_data['month'],Workoutdate=cal_data['day'],time=cal_data['current_time']) 
+    trans=cal(user_id=userid,dates=output,month=cal_data['month'],
+              Workoutdate=cal_data['full_now'].date(),time=cal_data['current_time']) 
     try:
         # db.session.add(trans)
         db.session.merge(trans)
@@ -53,12 +54,12 @@ def transfer_to_db(userid,info,cal_data):
        
         return Fail
 
-def dates_maker(week,todaysdate,updates=0):
+def dates_maker(weeks,todaysdate,updates=0):
     # flattened = [day for week in weeks for day in week]
     if updates==0:
         flat_output = ""
         if updates ==0:
-            for week in week:
+            for week in weeks:
                 for day in week:
                     if day == todaysdate:
                         flat_output += present
@@ -88,40 +89,34 @@ def get_today_index(todaysdate,weeks):
 
 
 
-def date_updates(week,todaysdate,status):
-        size=len(week)
-        flag=[]
-        output=[Notdone]*(size)
-        # print(get_today_index(weeks=weeks,todaysdate=todaysdate))
-        
-
-        # todaysdate=get_today_index(weeks=weeks,todaysdate=todaysdate)
-        output[todaysdate]=status
-        # print(weeks)
-        for i in range(size):
-            if i == todaysdate:
-                continue
-            if week[i]==notavailable:
-                output[i]=notavailable
-            if (week[i]==present):
-                output[i]=present      
-            if ((week[i]==Succues)):
-                output[i]=Succues
-                flag.append(i+1)
-            if ( (output[i]==Succues)or(output[i]==present)):
-                flag.append(i+1)
-
-        
-            for j in range(len(flag)-1):
-                    # output[flag[j]:flag[j+1]-1]=absent  
-                    start = flag[j]
-                    end = flag[j + 1]-1
-                    # print((start,end))
-                    output[start:end] = [absent] * (end - start)                
-
-        # print(output)                       
-        return output
+def date_updates(week, todaysdate, status):
+    size = len(week)
+    output = [Notdone] * size
     
+    for i in range(size):
+        if i == todaysdate:
+            output[i] = status
+        elif week[i] == notavailable:
+            output[i] = notavailable
+        elif week[i] == present:
+            output[i] = present
+        elif week[i] == Succues:
+            output[i] = Succues
+
+    flag = []
+    for i in range(size):
+        if output[i] in (Succues, present):
+            flag.append(i)
+            
+    for j in range(len(flag) - 1):
+        start = flag[j] + 1
+        end = flag[j + 1] 
+        
+        for k in range(start, end):
+            if output[k] == Notdone:
+                output[k] = absent
+
+    return output
 
            
 
@@ -133,30 +128,30 @@ def date_updates(week,todaysdate,status):
 
 
         
-def data(user_name,cal_data,update=0):
+def data(user_name,update=0):
     cal_data=get_calendar_data()
     user=User.query.filter_by(username=user_name).first()
     if user is None:
-        return Fail
+        return "NO"
     id=user.id
 
     # date=12
     found_Cal=cal.query.filter_by(user_id=id).first()
     if found_Cal is None:
-        info=dates_maker(week= cal_data['weeks'],todaysdate=cal_data['day'])
+        info=dates_maker(weeks= cal_data['weeks'],todaysdate=cal_data['day'])
         transfer_to_db(userid=id,info=info,cal_data=cal_data)
         return info #the data is added into the db now , need to think about what if the data is nto added
     info=found_Cal.dates
     today_idx = get_today_index(todaysdate=cal_data['day'],weeks=cal_data['weeks'])
     elemnt=info[today_idx]
-    if elemnt==notavailable:
+    if elemnt == notavailable or elemnt == Notdone:
         elemnt=present
     # print(elemnt)
     table_month=found_Cal.month
     send_mon=cal_data['month']
     flag=0
     if(table_month!=send_mon):
-        info=dates_maker(week=cal_data['weeks'],todaysdate=cal_data['day'])
+        info=dates_maker(weeks=cal_data['weeks'],todaysdate=cal_data['day'])
         transfer_to_db(userid=id,info=info,cal_data=cal_data)
         flag=1
         elemnt = info[today_idx]
@@ -167,15 +162,16 @@ def data(user_name,cal_data,update=0):
             
     if update==0:
         output= date_updates(week=info,todaysdate=today_idx,status=elemnt)
-        if flag==1:
+        is_new_day = found_Cal.Workoutdate < cal_data['full_now'].date()
+        if flag==1 or is_new_day:
             transfer_to_db(userid=id,info=output,cal_data=cal_data)
 
-        return output
+
     else:
         output= date_updates(week=info,todaysdate=today_idx,status=Succues)
         transfer_to_db(userid=id,info=output,cal_data=cal_data)
 
-        return output
+    return output
     
 
     
