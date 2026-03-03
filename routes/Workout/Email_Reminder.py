@@ -40,34 +40,35 @@ def log_result(status,email=None,log_type=1):
         with open("mail_log.txt", "a") as f:
             f.write(f"{datetime.now()} - {email} - {status}\n")
     elif log_type==2:
-        with open("Db_ERROR",'a') as f:
+        with open("Db_ERROR.txt",'a') as f:
             f.write(f"{datetime.now().time()}-->{status}\n")
     else:
-            with open("General_ERROR",'a') as f:
+            with open("General_ERROR.txt",'a') as f:
                 f.write(f"{datetime.now().time()}-->{status}\n")
 
 def Messages_to_send(to,msg_info=1,date=None,frm=time_data["sender_email"]):
-    receiver = to.partition('@')[0]
-    sender=frm.split('@')[0]
+    receiver = f"{to}@gmail.com" if "@" not in to else to
+    # receiver=to
+    # sender=frm.partition('@')[0]
     date = date or "Not Available"
     if msg_info==1:
-        content=f"""Hey You --> {receiver},Arent you gonna workout today ???"""
+        content=f"""Hey You --> {to.partition('@')[0]},Arent you gonna workout today ???"""
         
     msg=EmailMessage()
     msg["Subject"]="You Have missed You Workout Today"
-    msg["To"]=to
+    msg["To"]=receiver
     msg["From"]=frm
     msg.set_content(content)
     return email_sender(to=to,frm=frm,Message=msg)
 
 
 
-def Email_extractor(timelimit=None):
+def Email_extractor(app,timelimit=None):
 
     global email, allowedtime, allowedday
     while True:
-        with   current_app.app_context():
-            log_result(log_type=33,status="HEE")
+        with   app.app_context():
+            # log_result(log_type=33, status="Step 1: Background Loop Started")
             current_now = datetime.now()
             current_threshold = current_now - timedelta(hours=allowedtime)
             today_date = current_now.date()
@@ -109,10 +110,13 @@ def email_sender(to,Message,frm=time_data["sender_email"]):
 
 def EmailReminder(sender_email=email, timelimit=10, days=1):
     changefactors(sender_email=sender_email,timelimit=timelimit,days=days)
+    actual_app = current_app._get_current_object()
     try:
-        thread=threading.Thread(target=Email_extractor,args=(timelimit))
+        thread=threading.Thread(target=Email_extractor,args=(actual_app,timelimit,))
+        thread.daemon=True
         thread.start()
+        # log_result(log_type=33, status="SYSTEM: Thread Started Successfully")
     except Exception as e:
-        log_result(log_type=0,status=e)
+        log_result(log_type=0, status=f"Thread Launch Failed: {e}")
                 
     
