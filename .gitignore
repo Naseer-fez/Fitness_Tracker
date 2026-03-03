@@ -6,3 +6,4 @@ instance/
 instance/
 *.db
 Log/
+Api_Rate/Data
