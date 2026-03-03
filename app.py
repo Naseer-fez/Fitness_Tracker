@@ -1,6 +1,4 @@
 from flask import Flask
-# from flask import request,render_template
-# from Api_Rate.Enable import Access
 from routes.Login.Login import auth_bt 
 from routes.CreateAccount.CreateAccount import Cre_acc
 from models.Sql_Tables import db 
@@ -9,10 +7,8 @@ from routes.BMI.Bmi_Cal import Bmi_auth
 from routes.Dashboard.Dashboard import dashboard_bp
 from routes.Welcome.hello import Hi_bp
 from routes.Dashboard.Functions.Dataentry import Dashboard_Details_Entry
-
-# from models.Calander_Table import db
-# from models.Calander_Table import Calander
-# db.create_all()
+from routes.Workout.Email_Reminder import EmailReminder
+from routes.Workout.Email_Reminder import Reminder_app
 from dotenv import load_dotenv
 import os 
 load_dotenv()
@@ -30,6 +26,7 @@ app.register_blueprint(auth_bt)
 app.register_blueprint(Cre_acc)
 app.register_blueprint(Bmi_auth)
 app.register_blueprint(Hi_bp)
+app.register_blueprint(Reminder_app)
 # app.register_blueprint(Dashboard_Details_Entry)
 # @app.before_request
 # def check_access():
@@ -39,5 +36,7 @@ app.register_blueprint(Hi_bp)
 
 if __name__ == '__main__':
     with app.app_context():
-        db.create_all() #this crrated the db if it is not created 
+        db.create_all() 
     app.run(debug=True)
+    EmailReminder()
+    

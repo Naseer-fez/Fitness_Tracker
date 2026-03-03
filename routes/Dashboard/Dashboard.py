@@ -51,7 +51,7 @@ def details():
            user_data={key: request.form.get(key) for key in fields}
            user_data['user_id']=user.id
            app_instance = current_app._get_current_object()
-           thread=thread = threading.Thread(target=Entry, args=( user_data,app_instance) )
+           thread = threading.Thread(target=Entry, args=( user_data,app_instance) )
            thread.start()
         
            return redirect("/DashBoard")

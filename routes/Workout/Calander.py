@@ -27,7 +27,7 @@ def transfer_to_db(userid,info,des_mon=current_month_int):
     else:
         output=info
     
-    trans=cal(user_id=userid,dates=output,month=des_mon,date=now.date(),time=now.time())
+    trans=cal(user_id=userid,dates=output,month=des_mon,Workoutdate=now.date(),time=now.time())
     try:
         # db.session.add(trans)
         db.session.merge(trans)
