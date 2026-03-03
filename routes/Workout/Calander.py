@@ -83,40 +83,57 @@ def get_today_index(todaysdate,weeks):
                     return inf
 
         
+# def date_updates(week, todaysdate, status):
+#     size = len(week)
+#     output = [Notdone] * size
+    
+#     for i in range(size):
+#         if i == todaysdate:
+#             output[i] = status
+#         elif week[i] == notavailable:
+#             output[i] = notavailable
+#         elif week[i] == present:
+#             output[i] = present
+#         elif week[i] == Succues:
+#             output[i] = Succues
+
+#     flag = []
+#     for i in range(size):
+#         if output[i] in (Succues, present):
+#             flag.append(i)
+            
+#     for j in range(len(flag) - 1):
+#         start = flag[j] + 1
+#         end = flag[j + 1] 
+        
+#         for k in range(start, end):
+#             if output[k] == Notdone:
+#                 output[k] = absent
+
+#     return output
         
             
-
-
-
 
 def date_updates(week, todaysdate, status):
     size = len(week)
-    output = [Notdone] * size
     
-    for i in range(size):
-        if i == todaysdate:
-            output[i] = status
-        elif week[i] == notavailable:
-            output[i] = notavailable
-        elif week[i] == present:
-            output[i] = present
-        elif week[i] == Succues:
-            output[i] = Succues
+    output = [
+        status if i == todaysdate
+        else week[i] if week[i] in (notavailable, present, Succues)
+        else Notdone
+        for i in range(size)
+    ]
 
-    flag = []
-    for i in range(size):
-        if output[i] in (Succues, present):
-            flag.append(i)
-            
-    for j in range(len(flag) - 1):
-        start = flag[j] + 1
-        end = flag[j + 1] 
-        
-        for k in range(start, end):
+    flags = [i for i, v in enumerate(output) if v in (Succues, present)]
+
+    for start, end in zip(flags, flags[1:]):
+        for k in range(start + 1, end):
             if output[k] == Notdone:
                 output[k] = absent
 
     return output
+
+
 
            
 
