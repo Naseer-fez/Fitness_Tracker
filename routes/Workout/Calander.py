@@ -15,19 +15,32 @@ present='Y'
 absent='R'
 Fail="NO"
 
-now=datetime.now()
-date = now.day
-current_month_int = now.month
-current_year_int = now.year   
-weeks = calendar.monthcalendar(current_year_int, current_month_int)
+# now=datetime.now()
+# date = now.day
+# current_month_int = now.month
+# current_year_int = now.year   
+# weeks = calendar.monthcalendar(current_year_int, current_month_int)
 
-def transfer_to_db(userid,info,des_mon=current_month_int):
+def get_calendar_data():
+    """Returns everything you need for the current moment."""
+    now = datetime.datetime.now()
+    return {
+        "day": now.day,
+        "month": now.month,
+        "year": now.year,
+        "weeks": calendar.monthcalendar(now.year, now.month),
+        "full_now": now,
+        "current_time":now.time()
+    }
+
+
+def transfer_to_db(userid,info,cal_data):
     if(isinstance(info,list)):
         output="".join(info)
     else:
         output=info
-    
-    trans=cal(user_id=userid,dates=output,month=des_mon,Workoutdate=now.date(),time=now.time())
+
+    trans=cal(user_id=userid,dates=output,month=cal_data['month'],Workoutdate=cal_data['day'],time=cal_data['current_time']) 
     try:
         # db.session.add(trans)
         db.session.merge(trans)
@@ -56,17 +69,9 @@ def dates_maker(week,todaysdate,updates=0):
         # print(flat_output)
         return flat_output
 
-# def get_today_index(weeks, todaysdate):
-#     today_int = todaysdate.day if hasattr(todaysdate, 'day') else int(todaysdate)
-#     count = 0
-#     for i, cell in enumerate(weeks):
-#         if cell != notavailable:  # Skip 'G' (padding), count everything else
-#             count += 1
-#             if count == today_int:
-#                 return i
-#     return -1
 
-def get_today_index(todaysdate):
+
+def get_today_index(todaysdate,weeks):
       inf=0
       for i in range(len(weeks)):
 
@@ -128,7 +133,8 @@ def date_updates(week,todaysdate,status):
 
 
         
-def data(user_name,update=0):
+def data(user_name,cal_data,update=0):
+    cal_data=get_calendar_data()
     user=User.query.filter_by(username=user_name).first()
     if user is None:
         return Fail
@@ -137,21 +143,21 @@ def data(user_name,update=0):
     # date=12
     found_Cal=cal.query.filter_by(user_id=id).first()
     if found_Cal is None:
-        info=dates_maker(week=weeks,todaysdate=date)
-        transfer_to_db(userid=id,info=info,des_mon=current_month_int)
+        info=dates_maker(week= cal_data['weeks'],todaysdate=cal_data['day'])
+        transfer_to_db(userid=id,info=info,cal_data=cal_data)
         return info #the data is added into the db now , need to think about what if the data is nto added
     info=found_Cal.dates
-    today_idx = get_today_index(todaysdate=date)
+    today_idx = get_today_index(todaysdate=cal_data['day'],weeks=cal_data['weeks'])
     elemnt=info[today_idx]
     if elemnt==notavailable:
         elemnt=present
     # print(elemnt)
     table_month=found_Cal.month
-    send_mon=current_month_int
+    send_mon=cal_data['month']
     flag=0
     if(table_month!=send_mon):
-        info=dates_maker(week=weeks,todaysdate=date)
-        transfer_to_db(userid=id,info=info,des_mon=current_month_int)
+        info=dates_maker(week=cal_data['weeks'],todaysdate=cal_data['day'])
+        transfer_to_db(userid=id,info=info,cal_data=cal_data)
         flag=1
         elemnt = info[today_idx]
     else:
@@ -162,12 +168,12 @@ def data(user_name,update=0):
     if update==0:
         output= date_updates(week=info,todaysdate=today_idx,status=elemnt)
         if flag==1:
-            transfer_to_db(userid=id,info=output,des_mon=send_mon)
+            transfer_to_db(userid=id,info=output,cal_data=cal_data)
 
         return output
     else:
         output= date_updates(week=info,todaysdate=today_idx,status=Succues)
-        transfer_to_db(userid=id,info=output,des_mon=send_mon)
+        transfer_to_db(userid=id,info=output,cal_data=cal_data)
 
         return output
     
@@ -176,6 +182,7 @@ def data(user_name,update=0):
 if __name__=="__main__":
     # st= "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGSNNNG"
     # print(len(st))
+    now = datetime.datetime.now()
     print(now.date())
     print(now.time())
     pass
