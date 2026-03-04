@@ -1,0 +1,3 @@
+['Age', 'Gender', 'Weight (kg)', 'Height (m)', 'Session_Duration (hours)', 'Workout_Frequency (days/week)', 'BMI']
+['Max_BPM', 'Avg_BPM', 'Resting_BPM']
+['Calories_Burned', 'Workout_Type', 'Water_Intake (liters)', 'Experience_Level']
