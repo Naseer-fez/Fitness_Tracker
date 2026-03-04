@@ -1,31 +1,38 @@
-import pickle
-from pathlib import Path
+import pickle 
 import os 
-filepath=Path("Data/Rows")
-def Fileoperation(filename,filemode='rb',destination=filepath,info=None):
-    if filemode=='rb':
-        with open(f"{destination}/{filename}.pkl",mode=filemode) as f:
-            output=pickle.load(f)
-            return output
-    else:
-         with open(f"{destination}/{filename}.pkl",mode=filemode) as f:
-            pickle.dump(info,f)
+import pandas as pd
+import xgboost as xgb
+currentdir=os.getcwd()
+requiredpath=os.path.join(currentdir,"Data/ML_data")
 
 
-def loging(info,mode='w'):
-    with open("Data/Test.txt",f'{mode}') as f:
-        f.write(f"{info}\n")
-    print("Done")
+similardata=pd.read_csv(f"{requiredpath}/Similardata.csv")
 
-# def findingfiles():
-#     files=[]
-#     for file in filepath.glob("*"):
-#     #  print(f"Found file: {file.name}")
-#         files.append(file.name)
-#     print(files)
-# print(Allrows)
-# Allrows=Fileoperation(filename="Allrows")
-Extradata=Fileoperation(filename="Extradata")
-Heartdata=Fileoperation(filename="Heartdata")
-Ml_data=Fileoperation(filename="Ml_data")
-Similardata=Fileoperation(filename="Similardata")
+MLdata=pd.read_csv(f"{requiredpath}/Ml_Data.csv")
+mlrows=MLdata.columns
+
+# heartdata=pd.read_csv(f"{requiredpath}/Heartdata.csv")
+# Extradata=pd.read_csv(f"{requiredpath}/Extradata.csv")
+
+X=similardata
+
+Y=MLdata[mlrows[0]]
+# print(X.columns)
+# print(similardata.dtypes)
+# print(Y.dtype)
+
+
+Model = xgb.XGBRegressor(
+    n_estimators=500,   
+    max_depth=3,         
+    learning_rate=0.05, 
+    reg_lambda=10,     
+    subsample=0.8,      
+    colsample_bytree=0.8 
+)
+Model.fit(X,Y)
+Model.save_model(f"{currentdir}/Model.json")
+# def averageerror():
+    # from sklearn.model_selection import cross_val_score
+    # scores = cross_val_score(Model, X, Y, scoring='neg_mean_squared_error', cv=5)
+    # print(f"Average Error: {np.sqrt(-scores.mean())}")
