@@ -7,6 +7,7 @@
 </head>
 <body>
     <form action="/Details" method="POST">
+        <input type="hidden" name="next" value="{{ request.args.get('next', '/') }}">
         {% if messages %}
         <h3 style="color: red;">{{ messages }}</h3>
         {% endif %}

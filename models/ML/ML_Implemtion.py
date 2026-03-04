@@ -2,9 +2,12 @@ import pickle
 import os 
 import pandas as pd
 import xgboost as xgb
-currentdir=os.getcwd()
-requiredpath=os.path.join(currentdir,"Data/ML_data")
 
+
+
+script_path = os.path.abspath(__file__)
+current_dir = os.path.dirname(script_path)
+requiredpath = os.path.join(current_dir, "Data", "ML_data")
 
 similardata=pd.read_csv(f"{requiredpath}/Similardata.csv")
 
@@ -31,7 +34,7 @@ Model = xgb.XGBRegressor(
     colsample_bytree=0.8 
 )
 Model.fit(X,Y)
-Model.save_model(f"{currentdir}/Model.json")
+Model.save_model(f"{current_dir}/Model.json")
 # def averageerror():
     # from sklearn.model_selection import cross_val_score
     # scores = cross_val_score(Model, X, Y, scoring='neg_mean_squared_error', cv=5)

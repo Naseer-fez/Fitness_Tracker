@@ -2,9 +2,11 @@ import pandas as pd
 import pickle
 from pathlib import Path
 import os 
-currentdir=os.getcwd()
-requiredpath=os.path.join(currentdir,r"Data\Gymdata")
 
+script_path = os.path.abspath(__file__)
+current_dir = os.path.dirname(script_path)
+requiredpath = os.path.join(current_dir, "Data", "Gymdata")
+# requiredpath=os.path.join(project_root,r"Data\Gymdata")
 
 def concatdata():
     folder=requiredpath
@@ -29,13 +31,13 @@ def loging(info,mode='w'):
     print("Done")
 
 def Outputing_rows(filename,filemode,output):
-    filepath=Path(os.path.join(currentdir,"Data"))
+    filepath=Path(os.path.join(current_dir,"Data"))
     filepath.mkdir(parents=True, exist_ok=True)
     with open(f"{filepath}/{filename}.pkl",mode=filemode) as f:
         pickle.dump(output,f)
 
 def outputing_csv(filename,output):
-        filepath=Path(os.path.join(currentdir,"Data/ML_Data"))
+        filepath=Path(os.path.join(current_dir,"Data/ML_Data"))
         filepath.mkdir(parents=True, exist_ok=True)
 
         output.to_csv(f"{filepath}/{filename}.csv",index=False)
@@ -84,7 +86,7 @@ alltherows=["Similardata","Heartdata","Extradata","Ml_Data"]
 
 Final_Data = {name: locals()[name] for name in alltherows}
 
-# Outputing_rows(filename="Allrows",filemode='wb',output=alltherows)
+Outputing_rows(filename="Allrows",filemode='wb',output=SimilarColoums)
 
 for row in list(Final_Data.keys()):
     outputing_csv(filename=row,output=Final_Data[row])
