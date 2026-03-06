@@ -10,6 +10,7 @@ from routes.Dashboard.Functions.Dataentry import Dashboard_Details_Entry
 from routes.Workout.Email_Reminder import EmailReminder
 from routes.Workout.Email_Reminder import Reminder_app
 from routes.Predection.index import prd_bp
+from routes.FitnessBot.Main import Cht_bp
 from dotenv import load_dotenv
 import os 
 load_dotenv()
@@ -20,6 +21,7 @@ Mysql_DB=os.getenv("Mysql_DB")
 app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:{Mysql_DB}@localhost/fitness_tracker'
 app.secret_key=os.getenv("SECRET_KEY")
 db.init_app(app)
+app.register_blueprint(Cht_bp)
 app.register_blueprint(create_acc)
 app.register_blueprint(dashboard_bp)
 app.register_blueprint(auth_bt)
