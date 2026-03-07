@@ -5,7 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+<style>
+body{
+
+background-color:burlywood;
+
+}
+
+h1 {
+    border: 3px solid #2a9d8f;  
+    padding: 20px;             
+    text-align: center;        
+    font-size: 2rem;           
+    border-radius: 10px;       
+    color: #264653;
+  }
+.box{
+border:  4px double grey;
+padding: 15px;
+align-content: center;
+border-radius: 80px;
+}
+input{
+border: 3px solid yellowgreen;
+padding: 8px ;
+color-scheme: inherit;
+background-color: #8acae3;
+width: 700px;
+font-size: 16px;
+}
+.sub{
+border: 3px solid ;
+background-color: gainsboro;
+padding: 6 px;
+border-radius: 7px;
+cursor: pointer;
+transition: background 0.3s ease;
+}
+.sub:hover{
+background-color: greenyellow;
+
+}
+.Answer{
+background-color: #2a9d8f;
+border:  5px solid lightskyblue;
+padding:  7x;
+color-scheme: inherit;}
+.Prt{
+
+    color: #2a9d8f;
+    padding: 8px;
+    border: 5px dotted ridge blue;
+
+
+}
+
+
+</style>
+
 <body>
-    
+    <h1>Welcome To Your Personal Fitness Chat Bot</h1>
+    <div class="box">
+        <form action="/Chat" method="POST">
+        <table align="center">
+            <tr>Entre Your Message here:
+            </tr>
+            <tr>
+                <input type="text" id="Promt" name="Promt">
+            </tr> 
+            <tr>
+                 <input type="hidden" name="worked_out" value="true">
+                <button  class ="sub" type="submit">Submit</button></tr>
+
+        </table>
+    </form>
+        </div>
+       
+        {%if Data %}
+         <div class="Answer"></div>
+        <h2 class="Prt">
+            {{Data}}
+        </h2>
+
+
+
+    </div>
+        {% endif %}
+
 </body>
 </html>

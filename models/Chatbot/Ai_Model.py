@@ -47,7 +47,54 @@ NEVER:
 
 Ollam_Model=["deepseek-r1:1.5b","qwen2.5:0.5b","gemma3:1b"]
 
+import subprocess
+import time
+import requests
+import os
+
+def ensure_ollama_running():
+    url = "http://localhost:11434/api/tags"
+    
+    try:
+        if requests.get(url).status_code == 200:
+            return True
+    except requests.exceptions.ConnectionError:
+        pass
+
+    flags = 0
+    if os.name == 'nt':
+        flags = subprocess.CREATE_NO_WINDOW
+
+    subprocess.Popen(
+        ["ollama", "serve"], 
+        stdout=subprocess.DEVNULL, 
+        stderr=subprocess.DEVNULL,
+        creationflags=flags
+    )
+
+    for _ in range(10):
+        try:
+            if requests.get(url).status_code == 200:
+                return True
+        except requests.exceptions.ConnectionError:
+            time.sleep(1)
+            
+    return False
+
+
+
+
+
+
+
 def Chatbot(UserPromt,AiModels=None,SystemPromt=SystPromt):
+    if ensure_ollama_running()==False:
+        return """Error While Starting THe model,
+    Please Try Agin after some Time
+    
+    """
+        pass
+    
     if AiModels is None:
         current_models = Ollam_Model
     elif isinstance(AiModels, list):
