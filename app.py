@@ -11,6 +11,8 @@ from routes.Workout.Email_Reminder import EmailReminder
 from routes.Workout.Email_Reminder import Reminder_app
 from routes.Predection.index import prd_bp
 from routes.FitnessBot.Main import Cht_bp
+
+
 from dotenv import load_dotenv
 import os 
 load_dotenv()
@@ -18,7 +20,17 @@ load_dotenv()
 app = Flask(__name__)
 Mysql_DB=os.getenv("Mysql_DB")
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
-app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:{Mysql_DB}@localhost/fitness_tracker'
+
+#this line for local
+# app.config['SQLALCHEMY_DATABASE_URI'] = f'mysql+pymysql://root:{Mysql_DB}@localhost/fitness_tracker'
+
+
+if os.environ.get("RENDER") or os.environ.get("PYTHONANYWHERE"):
+    app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///site.db"
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://root:{Mysql_DB}@localhost/fitness_tracker"
+
+
 app.secret_key=os.getenv("SECRET_KEY")
 db.init_app(app)
 app.register_blueprint(Cht_bp)
@@ -36,10 +48,10 @@ app.register_blueprint(prd_bp)
 #     # This will run before every single request to your server
 #     if Access(ip=request.remote_addr) == 0:
 #         return render_template("Timeout.html")
-
+with app.app_context():
+    db.create_all() 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all() 
+
         # if os.environ.get('WERKZEUG_RUN_MAIN') == 'true' or not app.debug:
         # EmailReminder(timelimit=0)
     app.run(debug=True)
