@@ -10,3 +10,4 @@ Api_Rate/Data
 models/ML/Data
 models/ML/Data/Rows
 .pkl
+.c
