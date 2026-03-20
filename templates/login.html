@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+</head>
+<style>
+
+</style>
+<body>
+    <div id="Box">
+    <form action="/Login" method="POST">
+
+        {% if messages %}
+        <h3 style="color: red;">{{ messages }}</h3>
+        {% endif %}
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username">
+        <br><br>
+
+        <label for="Password">Password:</label>
+        <input type="Password" id="Password" name="Password" required>
+        <br><br>
+        <button type="submit" class="login-btn">Log In</button>
+        <a href="/Create">
+    <button type="button" class="login-btn">Create Account</button>
+</a>
+
+    </form>
+    </div>
+</body>
+
+</html>
